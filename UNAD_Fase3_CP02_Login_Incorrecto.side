@@ -1,0 +1,70 @@
+{
+  "id": "61f3df4a-3038-40e3-adec-318a5e2dae71",
+  "version": "2.0",
+  "name": "UNAD_Fase3_Pruebas_Autenticacion",
+  "url": "https://aseconsereduca.com",
+  "tests": [
+    {
+      "id": "0d62039b-4eed-42ca-ba9f-3ea9c2db9640",
+      "name": "CP-02_Login_Incorrecto",
+      "commands": [
+        {
+          "id": "194b286f-2f82-4948-8906-4a1cfe9664fa",
+          "comment": "",
+          "command": "open",
+          "target": "https://aseconsereduca.com/gcs/compra/admin/public/admin/login.php",
+          "targets": [],
+          "value": ""
+        },
+        {
+          "id": "795d1459-fe8a-4974-9ca0-c08e851f6bb4",
+          "comment": "",
+          "command": "type",
+          "target": "css=input[type='email']",
+          "targets": [],
+          "value": "prueba_inexistente_fase3@example.com"
+        },
+        {
+          "id": "98c8a6f3-bf8f-43ef-a058-6f0fdb1b2890",
+          "comment": "",
+          "command": "type",
+          "target": "css=input[type='password']",
+          "targets": [],
+          "value": "Prueba123!"
+        },
+        {
+          "id": "eaa6b682-274d-44df-9eb3-82ac91d2d425",
+          "comment": "",
+          "command": "click",
+          "target": "xpath=//button[normalize-space()='Ingresar']",
+          "targets": [],
+          "value": ""
+        },
+        {
+          "id": "03561296-f6b4-4b21-a950-4a772ea0b820",
+          "comment": "",
+          "command": "assertElementPresent",
+          "target": "xpath=//*[contains(text(),'Correo o contraseña incorrectos.')]",
+          "targets": [],
+          "value": ""
+        }
+      ]
+    }
+  ],
+  "suites": [
+    {
+      "id": "6b0a3a07-88fa-4bdf-ae26-40b639620c10",
+      "name": "ST-01_Autenticacion",
+      "persistSession": false,
+      "parallel": false,
+      "timeout": 300,
+      "tests": [
+        "0d62039b-4eed-42ca-ba9f-3ea9c2db9640"
+      ]
+    }
+  ],
+  "urls": [
+    "https://aseconsereduca.com/gcs/compra/admin/public/admin/login.php"
+  ],
+  "plugins": []
+}
