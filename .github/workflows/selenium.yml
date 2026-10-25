@@ -1,1 +1,42 @@
 
+name: Prueba Selenium UNAD CP-02
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  prueba-login:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Descargar repositorio
+        uses: actions/checkout@v4
+
+      - name: Preparar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Instalar Selenium SIDE Runner y ChromeDriver
+        run: npm install -g selenium-side-runner chromedriver
+
+      - name: Ejecutar caso CP-02
+        shell: bash
+        run: |
+          mkdir -p resultados
+          set -o pipefail
+          selenium-side-runner -w 1 \
+            -c 'browserName=chrome goog:chromeOptions.args=[headless,no-sandbox,disable-dev-shm-usage]' \
+            --output-directory=resultados --output-format=junit \
+            UNAD_Fase3_CP02_Login_Incorrecto.side 2>&1 | tee resultados/ejecucion.log
+
+      - name: Guardar evidencias de ejecucion
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: EV-09-Selenium-CP02
+          path: resultados/
+          if-no-files-found: warn
